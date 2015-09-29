@@ -346,11 +346,7 @@ class LDIFParser:
     attr_type = unfolded_line[0:colon_pos]
     # if needed attribute value is BASE64 decoded
     value_spec = unfolded_line[colon_pos:colon_pos+2]
-    if value_spec==': ':
-      attr_value = unfolded_line[colon_pos+2:]
-      if isinstance(unfolded_line, unicode):
-        attr_value = attr_value.encode('utf-8')
-    elif value_spec=='::':
+    if value_spec=='::':
       # attribute value needs base64-decoding
       attr_value = unfolded_line[colon_pos+2:]
       if isinstance(attr_value, unicode):
@@ -366,6 +362,11 @@ class LDIFParser:
           attr_value = urllib.urlopen(url).read()
     elif value_spec==':\r\n' or value_spec=='\n':
       attr_value = b''
+    else:
+      attr_value = unfolded_line[colon_pos+2:].lstrip()
+      if isinstance(unfolded_line, unicode):
+        attr_value = attr_value.encode('utf-8')
+
     return attr_type,attr_value
 
   def parse_entry_records(self):
