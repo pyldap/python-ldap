@@ -46,7 +46,7 @@ class sasl:
         SASL callback id's. The mech argument is a string that specifies
         the SASL mechaninsm to be uesd."""
         self.cb_value_dict = cb_value_dict or {}
-        self.mech = mech
+        self.mech = mech.encode('utf8')
 
     def callback(self,cb_id,challenge,prompt,defresult):
         """ The callback method will be called by the sasl_bind_s()
@@ -72,7 +72,7 @@ class sasl:
             _trace_file.write("*** id=%d, challenge=%s, prompt=%s, defresult=%s\n-> %s\n" % (
                 cb_id, challenge, prompt, repr(defresult), repr(self.cb_value_dict.get(cb_result))
               ))
-        return cb_result
+        return cb_result.encode('utf8')
 
 
 class cram_md5(sasl):
