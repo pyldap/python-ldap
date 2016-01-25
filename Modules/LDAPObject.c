@@ -1182,6 +1182,7 @@ l_ldap_whoami_s( LDAPObject* self, PyObject* args )
     int ldaperror;
 
     if (!PyArg_ParseTuple( args, "|OO", &serverctrls, &clientctrls)) return NULL;
+    if (not_valid(self)) return NULL;
 
     if (!PyNone_Check(serverctrls)) {
         if (!LDAPControls_from_object(serverctrls, &server_ldcs))
