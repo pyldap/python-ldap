@@ -49,7 +49,7 @@ def addModlist(entry,ignore_attr_types=None):
 
 
 def modifyModlist(
-  old_entry,new_entry,ignore_attr_types=None,ignore_oldexistent=0,case_ignore_attr_types=None
+  old_entry,new_entry,ignore_attr_types=None,ignore_oldexistent=0,case_ignore_attr_types=None,replace_is_add_then_delete=True
 ):
   """
   Build differential modify list for calling LDAPObject.modify()/modify_s()
@@ -69,6 +69,10 @@ def modifyModlist(
   case_ignore_attr_types
       List of attribute type names for which comparison will be made
       case-insensitive
+  replace_is_add_then_delete
+      Determines if a replace operation is carried out as add then delete
+      or if it is a pure ldap replace. This can have behavioural affects on
+      certain ldap servers and object types IE configuration directories.
   """
   ignore_attr_types = list_dict(map(lower,(ignore_attr_types or [])))
   case_ignore_attr_types = list_dict(map(lower,(case_ignore_attr_types or [])))
@@ -111,8 +115,11 @@ def modifyModlist(
               replace_attr_value = 1
               break
       if replace_attr_value:
-        modlist.append((ldap.MOD_DELETE,attrtype,None))
-        modlist.append((ldap.MOD_ADD,attrtype,new_value))
+        if replace_is_add_then_delete:
+          modlist.append((ldap.MOD_DELETE,attrtype,None))
+          modlist.append((ldap.MOD_ADD,attrtype,new_value))
+        else:
+          modlist.append((ldap.MOD_REPLACE,attrtype,new_value))
     elif old_value and not new_value:
       # Completely delete an existing attribute
       modlist.append((ldap.MOD_DELETE,attrtype,None))
