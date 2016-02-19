@@ -161,10 +161,21 @@ class SimpleLDAPObject:
     """
     if not PY2:
       return modlist
-    return tuple(
-      (op, self._unbytesify_value(attr), val)
-      for op, attr, val in modlist
-    )
+    # This breaks on the "add" family of operations, whos modlist is (attr, val)
+    # rather than (op, attr, val). we need to make this distinction.
+    if len(modlist) == 0: #be paranoid
+        return ()
+    if len(modlist[0]) == 3:
+        return tuple(
+          (op, self._unbytesify_value(attr), val)
+          for op, attr, val in modlist
+        )
+    # This is probably an add modlist
+    if len(modlist[0]) == 2:
+        return tuple(
+          (self._unbytesify_value(attr), val)
+          for attr, val in modlist
+        )
 
   def _bytesify_value(self, value):
     """Adapt a returned value according to bytes_mode.
