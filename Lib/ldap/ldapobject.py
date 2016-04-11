@@ -170,12 +170,12 @@ class SimpleLDAPObject:
       return modlist
     if with_opcode:
       return tuple(
-        (op, self._unbytesify_value(attr), self._bytesify_value(val))
+        (op, self._unbytesify_value(attr), val)
         for op, attr, val in modlist
       )
     else:
       return tuple(
-        (self._unbytesify_value(attr), self._bytesify_value(val))
+        (self._unbytesify_value(attr), val)
         for attr, val in modlist
       )
 
