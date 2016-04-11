@@ -129,12 +129,19 @@ class SimpleLDAPObject:
             BytesWarning,
             stacklevel=6,
           )
-      return value.decode('utf-8')
+      try:
+        return value.decode('utf-8')
+      except UnicodeError as e:
+        return value.encode('utf-8')
     else:
       if not isinstance(value, text_type):
         raise TypeError("All provided fields *must* be text when bytes mode is off; got %r" % (value,))
       assert not isinstance(value, bytes)
-      return value
+      
+      try:
+        return value.decode('utf-8')
+      except UnicodeError as e:
+        return value.encode('utf-8')
 
   def _unbytesify_values(self, *values):
     """Adapt values following bytes_mode.
@@ -163,12 +170,12 @@ class SimpleLDAPObject:
       return modlist
     if with_opcode:
       return tuple(
-        (op, self._unbytesify_value(attr), val)
+        (op, self._unbytesify_value(attr), self._bytesify_value(val))
         for op, attr, val in modlist
       )
     else:
       return tuple(
-        (self._unbytesify_value(attr), val)
+        (self._unbytesify_value(attr), self._bytesify_value(val))
         for attr, val in modlist
       )
 
