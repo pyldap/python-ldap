@@ -75,6 +75,18 @@ for i in range(len(LDAP_CLASS.extra_files)):
   origfileslist = string_split(origfiles, ',')
   LDAP_CLASS.extra_files[i]=(destdir, origfileslist)
 
+# Expand library_dirs and include_dirs from environment variables, makes
+# pyldap work with the apt buildpack on Heroku, for example.
+def expandvars(name):
+    return [os.path.expandvars(x)
+            for x in os.environ.get(name, '').split(':') if x]
+LDAP_CLASS.library_dirs += expandvars('LIBRARY_PATH')
+LDAP_CLASS.include_dirs += expandvars('INCLUDE_PATH')
+
+# Add "sasl" subdirectory to include_dirs
+LDAP_CLASS.include_dirs += [
+    os.path.join(x, 'sasl') for x in expandvars('INCLUDE_PATH')]
+
 #-- Let distutils/setuptools do the rest
 name = 'pyldap'
 
