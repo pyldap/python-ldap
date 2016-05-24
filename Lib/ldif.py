@@ -135,6 +135,8 @@ class LDIFWriter:
     returns 1 if attr_value has to be base-64 encoded because
     of special chars or because attr_type is in self._base64_attrs
     """
+    if not isinstance(attr_value, str):
+        attr_value = attr_value.decode('utf-8')
     return attr_type.lower() in self._base64_attrs or \
            not safe_string_re.search(attr_value) is None
 
@@ -150,7 +152,7 @@ class LDIFWriter:
     if self._needs_base64_encoding(attr_type,attr_value):
       # Encode with base64
       if not isinstance(attr_value, bytes):
-          attr_value = attr_value.encode('utf-8')
+          attr_value = attr_value.encode()
       encoded = base64.encodestring(attr_value).decode('ascii')
       encoded = encoded.replace('\n','')
       self._unfold_lines(':: '.join([attr_type, encoded]))
@@ -207,8 +209,8 @@ class LDIFWriter:
           or a list with a modify list like for LDAPObject.modify().
     """
     # Start with line containing the distinguished name
-    if not isinstance(dn, bytes):
-        dn = dn.encode('utf-8')
+    if not isinstance(dn, str):
+        dn = dn.decode('utf-8')
     self._unparseAttrTypeandValue('dn', dn)
     # Dispatch to record type specific writers
     if isinstance(record, dict):
