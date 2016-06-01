@@ -135,8 +135,14 @@ class LDIFWriter:
     returns 1 if attr_value has to be base-64 encoded because
     of special chars or because attr_type is in self._base64_attrs
     """
+    if attr_type.lower() == 'dn':
+        # We must always exclude DN, as our own library makes this a str (utf-8)
+        return False
+    # Here, safe_string_re, is being replace to a string pattern of ^$ which
+    # is causing any parse of bytes to fail. For now, just re-use the
+    # byte string for the .match rather than the (broken) pre-compiled instance.
     return attr_type.lower() in self._base64_attrs or \
-           not safe_string_re.search(attr_value) is None
+           not re.match(SAFE_STRING_PATTERN, attr_value) is None
 
   def _unparseAttrTypeandValue(self,attr_type,attr_value):
     """
