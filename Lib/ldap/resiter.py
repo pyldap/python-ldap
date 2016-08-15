@@ -10,7 +10,7 @@ Requires Python 2.3+
 """
 
 
-class ResultProcessor:
+class ResultProcessor(object):
   """
   Mix-in class used with ldap.ldapopbject.LDAPObject or derived classes.
   """

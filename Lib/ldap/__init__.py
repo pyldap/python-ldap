@@ -29,7 +29,7 @@ for k,v in vars(_ldap).items():
   if k.startswith('OPT_'):
     OPT_NAMES_DICT[v]=k
 
-class DummyLock:
+class DummyLock(object):
   """Define dummy class with methods compatible to threading.Lock"""
   def __init__(self):
     pass
@@ -48,7 +48,7 @@ else:
   LDAPLockBaseClass = threading.Lock
 
 
-class LDAPLock:
+class LDAPLock(object):
   """
   Mainly a wrapper class to log all locking events.
   Note that this cumbersome approach with _lock attribute was taken

@@ -44,7 +44,7 @@ class NameNotUnique(SubschemaError):
     return 'NAME not unique for %s' % (self.desc)
 
 
-class SubSchema:
+class SubSchema(object):
   """
   Arguments:
 

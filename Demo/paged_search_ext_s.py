@@ -11,7 +11,7 @@ import ldap,pprint
 from ldap.controls import SimplePagedResultsControl
 
 
-class PagedResultsSearchObject:
+class PagedResultsSearchObject(object):
   page_size = 50
 
   def paged_search_ext_s(self,base,scope,filterstr='(objectClass=*)',attrlist=None,attrsonly=0,serverctrls=None,clientctrls=None,timeout=-1,sizelimit=0):

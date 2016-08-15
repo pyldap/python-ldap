@@ -5,7 +5,7 @@ Helper class for using logging as trace file object
 
 import logging
 
-class logging_file_class:
+class logging_file_class(object):
 
   def __init__(self,logging_level):
     self._logging_level = logging_level

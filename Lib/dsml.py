@@ -31,7 +31,7 @@ def replace_char(s):
   return s
 
 
-class DSMLWriter:
+class DSMLWriter(object):
   """
   Class for writing LDAP entry records to a DSMLv1 file.
 

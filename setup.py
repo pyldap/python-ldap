@@ -46,7 +46,7 @@ while s:
 f.close()
 
 #-- A class describing the features and requirements of OpenLDAP 2.0
-class OpenLDAP2:
+class OpenLDAP2(object):
   library_dirs = []
   include_dirs = []
   extra_compile_args = []

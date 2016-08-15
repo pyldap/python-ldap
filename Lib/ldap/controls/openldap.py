@@ -45,7 +45,7 @@ class SearchNoOpControl(ValueLessRequestControl,ResponseControl):
 ldap.controls.KNOWN_RESPONSE_CONTROLS[SearchNoOpControl.controlType] = SearchNoOpControl
 
 
-class SearchNoOpMixIn:
+class SearchNoOpMixIn(object):
   """
   Mix-in class to be used with class LDAPObject and friends.
 
