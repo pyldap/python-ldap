@@ -207,8 +207,6 @@ class LDIFWriter:
           or a list with a modify list like for LDAPObject.modify().
     """
     # Start with line containing the distinguished name
-    if not isinstance(dn, bytes):
-        dn = dn.encode('utf-8')
     self._unparseAttrTypeandValue('dn', dn)
     # Dispatch to record type specific writers
     if isinstance(record, dict):
