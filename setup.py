@@ -64,7 +64,6 @@ cfg.read('setup.cfg')
 if cfg.has_section('_ldap'):
   for name in dir(LDAP_CLASS):
     if cfg.has_option('_ldap', name):
-      print(name + ': ' + cfg.get('_ldap', name))
       setattr(LDAP_CLASS, name, string_split(cfg.get('_ldap', name)))
 
 for i in range(len(LDAP_CLASS.defines)):
