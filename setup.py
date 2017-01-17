@@ -75,7 +75,7 @@ for i in range(len(LDAP_CLASS.extra_files)):
   LDAP_CLASS.extra_files[i]=(destdir, origfileslist)
 
 #-- Let distutils/setuptools do the rest
-name = 'pyldap'
+name = 'pyldap-ugent'
 
 # Python 2.3.6+ and setuptools are needed to build eggs, so
 # let's handle setuptools' additional  keyword arguments to
@@ -103,8 +103,7 @@ setup(
   and controls, etc.). 
   """,
   author = 'pyldap project',
-  url = 'https://github.com/pyldap/pyldap/',
-  download_url = 'https://pypi.python.org/pypi/pyldap/',
+  url = 'https://github.com/UGentPortaal-pyldap-ugent',
   classifiers = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
