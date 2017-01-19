@@ -1,4 +1,14 @@
 ----------------------------------------------------------------
+Released 2.4.28 2017-01-16
+
+Changes since 2.4.27:
+
+* Add byes_mode flag to NonblockingLDAPObject, ReconnectLDAPObject
+* Fix addModlist on python3
+* Restore support for UTF-8 values in ldif
+* [py3] Fix LDIF parsing
+
+----------------------------------------------------------------
 Released 2.4.27 2016-08-01 (upstream)
 
 Changes since 2.4.26:
