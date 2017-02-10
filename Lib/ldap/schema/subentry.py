@@ -474,8 +474,15 @@ def urlfetch(uri,trace_level=0,bytes_mode=None):
     l.unbind_s()
     del l
   else:
-    import urllib,ldif
-    ldif_file = urllib.urlopen(uri)
+    import ldif
+    from ldap.compat import urlopen
+    if '://' not in uri:
+        import warnings
+        warnings.warn(
+            "File URI must start with file://",
+            category=DeprecationWarning)
+        uri = "file://{}".format(uri)
+    ldif_file = urlopen(format(uri))
     ldif_parser = ldif.LDIFRecordList(ldif_file,max_entries=1)
     ldif_parser.parse()
     subschemasubentry_dn,s_temp = ldif_parser.all_records[0]
