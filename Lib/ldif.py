@@ -302,6 +302,8 @@ class LDIFParser:
 
   def _readline(self):
     s = self._input_file.readline()
+    if isinstance(s, bytes):
+        s = s.decode('utf-8')
     self.line_counter = self.line_counter + 1
     self.byte_counter = self.byte_counter + len(s)
     if s[-2:]=='\r\n':
