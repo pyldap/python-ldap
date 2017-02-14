@@ -19,6 +19,11 @@ file_content = "\n".join((
         "1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'RFC 1274' )"
     ),
     (
+        "attributeTypes: ( 1.3.6.1.4.1.7165.2.1.37 NAME 'sambaHomePath' "
+        "DESC 'Home directory UNC path' EQUALITY caseIgnoreMatch "
+        "SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} )"
+    ),
+    (
         "objectClasses: ( 1.3.6.1.4.1.1466.344 NAME 'dcObject' DESC "
         "'Standard LDAP objectclass' SUP top AUXILIARY MUST dc X-ORIGIN "
         "'RFC 2247' )"
@@ -54,6 +59,11 @@ testcases_schema_attrs = {
         "( 0.9.2342.19200300.100.1.38 NAME 'associatedName' "
         "DESC 'Standard LDAP attribute type' SYNTAX "
         "1.3.6.1.4.1.1466.115.121.1.12 X-ORIGIN 'RFC 1274' )"
+    ),
+    '1.3.6.1.4.1.7165.2.1.37': (
+        "( 1.3.6.1.4.1.7165.2.1.37 NAME 'sambaHomePath' "
+        "DESC 'Home directory UNC path' EQUALITY caseIgnoreMatch "
+        "SYNTAX 1.3.6.1.4.1.1466.115.121.1.15{128} )"
     ),
 }
 
