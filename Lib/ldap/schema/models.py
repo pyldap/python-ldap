@@ -27,7 +27,7 @@ NOT_HUMAN_READABLE_LDAP_SYNTAXES = {
 }
 
 
-class SchemaElement:
+class SchemaElement(object):
   """
   Base class for all schema element classes. Not used directly!
 

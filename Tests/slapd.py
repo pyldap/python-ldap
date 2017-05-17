@@ -41,7 +41,7 @@ def find_available_tcp_port(host=LOCALHOST):
     _log.info("Found available port %d", port)
     return port
 
-class Slapd:
+class Slapd(object):
     """
     Controller class for a slapd instance, OpenLDAP's server.
 

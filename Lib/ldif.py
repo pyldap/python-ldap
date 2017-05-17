@@ -86,7 +86,7 @@ def list_dict(l):
   return dict([(i,None) for i in l])
 
 
-class LDIFWriter:
+class LDIFWriter(object):
   """
   Write LDIF entry or change records to file object
   Copy LDIF input to a file output object containing all data retrieved
@@ -246,7 +246,7 @@ def CreateLDIF(dn,record,base64_attrs=None,cols=76):
   return s
 
 
-class LDIFParser:
+class LDIFParser(object):
   """
   Base class for a LDIF parser. Applications should sub-class this
   class and override method handle() to implement something meaningful.

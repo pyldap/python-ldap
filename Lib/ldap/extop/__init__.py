@@ -14,7 +14,7 @@ response.
 from ldap import __version__
 
 
-class ExtendedRequest:
+class ExtendedRequest(object):
   """
   Generic base class for a LDAPv3 extended operation request
 
@@ -40,7 +40,7 @@ class ExtendedRequest:
     return self.requestValue
 
 
-class ExtendedResponse:
+class ExtendedResponse(object):
   """
   Generic base class for a LDAPv3 extended operation response
 

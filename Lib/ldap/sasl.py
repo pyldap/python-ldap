@@ -33,7 +33,7 @@ CB_ECHOPROMPT  = 0x4005
 CB_NOECHOPROMPT= 0x4006
 CB_GETREALM    = 0x4008
 
-class sasl:
+class sasl(object):
     """This class handles SASL interactions for authentication.
     If an instance of this class is passed to ldap's sasl_bind_s()
     method, the library will call its callback() method. For

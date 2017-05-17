@@ -252,7 +252,7 @@ class syncInfoValue(univ.Choice):
         )
     )
 
-class SyncInfoMessage:
+class SyncInfoMessage(object):
     responseName = '1.3.6.1.4.1.4203.1.9.1.4'
 
     def __init__(self, encodedMessage):
@@ -292,7 +292,7 @@ class SyncInfoMessage:
                 return
 
 
-class SyncreplConsumer:
+class SyncreplConsumer(object):
     """
     SyncreplConsumer - LDAP syncrepl consumer object.
     """

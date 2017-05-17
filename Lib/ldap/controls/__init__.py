@@ -42,7 +42,7 @@ except ImportError:
   PyAsn1Error = None
 
 
-class RequestControl:
+class RequestControl(object):
   """
   Base class for all request controls
 
@@ -68,7 +68,7 @@ class RequestControl:
     return self.encodedControlValue
 
 
-class ResponseControl:
+class ResponseControl(object):
   """
   Base class for all response controls
 

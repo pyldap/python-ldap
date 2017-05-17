@@ -58,7 +58,7 @@ class NO_UNIQUE_ENTRY(ldap.NO_SUCH_OBJECT):
   """
 
 
-class SimpleLDAPObject:
+class SimpleLDAPObject(object):
   """
   Drop-in wrapper class around _ldap.LDAPObject
   """

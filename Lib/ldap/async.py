@@ -40,7 +40,7 @@ class WrongResultType(Exception):
     )
 
 
-class AsyncSearchHandler:
+class AsyncSearchHandler(object):
   """
   Class for stream-processsing LDAP search results
 
