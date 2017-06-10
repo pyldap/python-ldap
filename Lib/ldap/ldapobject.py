@@ -186,7 +186,11 @@ class SimpleLDAPObject:
 
     if value is None:
       return value
-
+    
+    # Remove all characters that are non-utf compatible so that isinstance all valid characters as string instead of bytes
+    # This fixes issue #97: https://github.com/pyldap/pyldap/issues/97
+    value = value.decode("utf-8", "ignore")
+    
     assert isinstance(value, text_type), "Should return text, got bytes instead (%r)" % (value,)
     if not self.bytes_mode:
       return value
