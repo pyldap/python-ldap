@@ -352,7 +352,7 @@ class SlapdTestCase(unittest.TestCase):
     def setUpClass(cls):
         if cls.server is None:
             cls.server = cls.server_class()
-            cls.server.start()
+        cls.server.start()
         cls.server = cls.server
 
     @classmethod
