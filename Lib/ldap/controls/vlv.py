@@ -132,8 +132,11 @@ class VLVResponseControl(ResponseControl):
         self.result = int(p.getComponentByName('virtualListViewResult'))
         self.result_code = p.getComponentByName('virtualListViewResult') \
                 .prettyOut(self.result)
-        self.context_id = p.getComponentByName('contextID')
-        if self.context_id:
-            self.context_id = str(self.context_id)
+        context_id = p.getComponentByName('contextID')
+        if context_id is None or not context_id.hasValue():
+            self.context_id = None
+        else:
+            self.context_id = str(context_id)
+
 
 KNOWN_RESPONSE_CONTROLS[VLVResponseControl.controlType] = VLVResponseControl
