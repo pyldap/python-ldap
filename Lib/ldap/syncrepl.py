@@ -271,7 +271,7 @@ class SyncInfoMessage:
         for attr in [ 'newcookie', 'refreshDelete', 'refreshPresent', 'syncIdSet']:
             comp = d[0].getComponentByName(attr)
 
-            if comp is not None:
+            if comp is not None and comp.hasValue():
 
                 if attr == 'newcookie':
                     self.newcookie = str(comp)
