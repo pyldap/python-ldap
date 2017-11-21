@@ -133,11 +133,13 @@ class SyncStateControl(ResponseControl):
         # In Python 3, pyasn1.char overrides bytes() to do encoding for us.
         # See also http://pyasn1.sourceforge.net/docs/type/univ/octetstring.html
         uuid = UUID(bytes=bytes(d[0].getComponentByName('entryUUID')))
-        self.cookie = d[0].getComponentByName('cookie')
+        cookie = d[0].getComponentByName('cookie')
+        if cookie is None or not cookie.hasValue():
+            self.cookie = None
+        else:
+            self.cookie = str(cookie)
         self.state = self.__class__.opnames[int(state)]
         self.entryUUID = str(uuid)
-        if self.cookie is not None:
-            self.cookie = str(self.cookie)
 
 KNOWN_RESPONSE_CONTROLS[SyncStateControl.controlType] = SyncStateControl
 
@@ -167,10 +169,12 @@ class SyncDoneControl(ResponseControl):
 
     def decodeControlValue(self, encodedControlValue):
         d = decoder.decode(encodedControlValue, asn1Spec = syncDoneValue())
-        self.cookie = d[0].getComponentByName('cookie')
+        cookie = d[0].getComponentByName('cookie')
+        if cookie is None or not cookie.hasValue():
+            self.cookie = None
+        else:
+            self.cookie = str(cookie)
         self.refreshDeletes = d[0].getComponentByName('refreshDeletes')
-        if self.cookie is not None:
-            self.cookie = str(self.cookie)
         if self.refreshDeletes is not None:
             self.refreshDeletes = bool(self.refreshDeletes)
 
@@ -265,7 +269,7 @@ class SyncInfoMessage:
         for attr in [ 'newcookie', 'refreshDelete', 'refreshPresent', 'syncIdSet']:
             comp = d[0].getComponentByName(attr)
 
-            if comp is not None:
+            if comp is not None and comp.hasValue():
 
                 if attr == 'newcookie':
                     self.newcookie = str(comp)
@@ -274,7 +278,7 @@ class SyncInfoMessage:
                 val = dict()
 
                 cookie = comp.getComponentByName('cookie')
-                if cookie is not None:
+                if cookie is not None and cookie.hasValue():
                     val['cookie'] = str(cookie)
 
                 if attr.startswith('refresh'):
