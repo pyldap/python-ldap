@@ -4,6 +4,7 @@
 *.pyc
 __pycache__/
 .tox
+.venv
 
 # shared libs installed 'setup.py test'
 /Lib/*.so*
